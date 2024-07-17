@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import SignupRoute from './Routes/SignupRoute.js';
 dotenv.config();
 
 const app = express();
@@ -12,7 +13,11 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
     console.log(err)
 })
 
+app.use(express.json());
 
-app.listen(() => {
+// Routes
+app.use('/auth',SignupRoute)
+
+app.listen(process.env.PORT,() => {
     console.log(`Server Running ${process.env.PORT}`);
 })
